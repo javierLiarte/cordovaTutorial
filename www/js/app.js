@@ -4,15 +4,11 @@
     /* ---------------------------------- Local Variables ---------------------------------- */
     var adapter = new LocalStorageAdapter();
     adapter.initialize().done(function () {
+        renderHomeView();
         console.log("Data adapter initialized");
     });
 
     /* --------------------------------- Event Registration -------------------------------- */
-    $('.search-key').on('keyup', findByName);
-    $('.help-btn').on('click', function() {
-        alert("Some help here...")
-    });
-
     document.addEventListener('deviceready', function () {
         if (navigator.notification) {
             window.alert = function (message) {
@@ -38,6 +34,15 @@
                 $('.employee-list').append('<li><a href="#employees/' + e.id + '">' + e.firstName + ' ' + e.lastName + '</a></li>');
             }
         });
+    }
+
+    function renderHomeView() {
+        var html = 
+            "<h1>Directory</h1>" +
+            "<input class='search-key' type='search' placeholder='Enter name' />" +
+            "<ul class='employee-list'></ul>";
+        $('body').html(html);
+        $('.search-key').on('keyup', findByName);
     }
 
 }());
