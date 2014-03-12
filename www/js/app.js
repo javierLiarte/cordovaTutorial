@@ -3,6 +3,9 @@
 
     /* ---------------------------------- Local Variables ---------------------------------- */
     var adapter = new LocalStorageAdapter();
+    var homeTpl = Handlebars.compile($("#home-tpl").html());
+    var employeeLiTpl = Handlebars.compile($("#employee-li-tpl").html());
+
     adapter.initialize().done(function () {
         renderHomeView();
         console.log("Data adapter initialized");
@@ -26,22 +29,12 @@
     /* ---------------------------------- Local Functions ---------------------------------- */
     function findByName() {
         adapter.findByName($('.search-key').val()).done(function (employees) {
-            var l = employees.length;
-            var e;
-            $('.employee-list').empty();
-            for (var i = 0; i < l; i++) {
-                e = employees[i];
-                $('.employee-list').append('<li><a href="#employees/' + e.id + '">' + e.firstName + ' ' + e.lastName + '</a></li>');
-            }
+            $('.employee-list').html(employeeLiTpl(employees));
         });
     }
 
     function renderHomeView() {
-        var html = 
-            "<h1>Directory</h1>" +
-            "<input class='search-key' type='search' placeholder='Enter name' />" +
-            "<ul class='employee-list'></ul>";
-        $('body').html(html);
+        $('body').html(homeTpl);
         $('.search-key').on('keyup', findByName);
     }
 
