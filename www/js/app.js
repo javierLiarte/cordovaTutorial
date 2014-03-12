@@ -2,7 +2,7 @@
 (function () {
 
     /* ---------------------------------- Local Variables ---------------------------------- */
-    var adapter = new MemoryAdapter();
+    var adapter = new WebSqlAdapter();
     adapter.initialize().done(function () {
         console.log("Data adapter initialized");
     });
