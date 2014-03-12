@@ -13,6 +13,18 @@
         alert("Some help here...")
     });
 
+    document.addEventListener('deviceready', function () {
+        if (navigator.notification) {
+            window.alert = function (message) {
+                navigator.notification.alert(
+                    message,    // message
+                    null,       // callback
+                    "Workshop", // tittle
+                    'OK'        // buttonName
+                    );
+            }
+        }
+    }, false);
 
     /* ---------------------------------- Local Functions ---------------------------------- */
     function findByName() {
