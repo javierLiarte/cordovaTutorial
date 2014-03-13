@@ -7,7 +7,7 @@
     var employeeLiTpl = Handlebars.compile($("#employee-li-tpl").html());
 
     adapter.initialize().done(function () {
-        renderHomeView();
+        $('body').html(new HomeView(adapter, homeTpl, employeeLiTpl).render().el);
         console.log("Data adapter initialized");
     });
 
@@ -27,15 +27,8 @@
     }, false);
 
     /* ---------------------------------- Local Functions ---------------------------------- */
-    function findByName() {
-        adapter.findByName($('.search-key').val()).done(function (employees) {
-            $('.employee-list').html(employeeLiTpl(employees));
-        });
-    }
+   
 
-    function renderHomeView() {
-        $('body').html(homeTpl);
-        $('.search-key').on('keyup', findByName);
-    }
+    
 
 }());

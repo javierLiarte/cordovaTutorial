@@ -42,11 +42,12 @@ var LocalStorageAdapter = function () {
     }
 
     this.findByName = function (searchKey) {
+        if (searchKey != undefined) searchKey = searchKey.toLowerCase();
         var deferred = $.Deferred(),
             employees = JSON.parse(window.localStorage.getItem("employees")),
             results = employees.filter(function (element) {
                 var fullName = element.firstName + " " + element.lastName;
-                return fullName.toLowerCase().indexOf(searchKey.toLowerCase()) > -1;
+                return fullName.toLowerCase().indexOf(searchKey) > -1;
             });
         deferred.resolve(results);
         return deferred.promise();
